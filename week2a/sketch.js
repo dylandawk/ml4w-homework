@@ -39,7 +39,7 @@ function draw() {
 
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
-  drawSkeleton();
+  //drawSkeleton();
 }
 
 // A function to draw ellipses over the detected keypoints
@@ -72,7 +72,8 @@ function drawSkeleton() {
 
 function drawCensorBar(){
   console.log("right eye"+rEye);
-  let eye_w = dist(rEye.x,lEye.x, rEye.y,lEye.x);
+  let scale = 3;
+  let eye_w = dist(rEye.x,rEye.y, lEye.x,lEye.y) * scale ;
   let eye_h = eye_w/4;
   let center_x = rEye.x + ((lEye.x-rEye.x)/2);
   let center_y = rEye.y +(lEye.y-rEye.y)/2;
