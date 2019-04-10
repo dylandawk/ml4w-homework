@@ -11,6 +11,8 @@ PoseNet example using p5.js
 let video;
 let poseNet;
 let poses = [];
+let lEye;
+let rEye;
 
 function setup() {
   createCanvas(640, 480);
@@ -46,16 +48,10 @@ function drawKeypoints()  {
   for (let i = 0; i < poses.length; i++) {
     // For each pose detected, loop through all the keypoints
     let pose = poses[i].pose;
-    for (let j = 0; j < pose.keypoints.length; j++) {
-      // A keypoint is an object describing a body part (like rightArm or leftShoulder)
-      let keypoint = pose.keypoints[j];
-      // Only draw an ellipse is the pose probability is bigger than 0.2
-      if (keypoint.score > 0.2) {
-        fill(255, 0, 0);
-        noStroke();
-        ellipse(keypoint.position.x, keypoint.position.y, 10, 10);
-      }
-    }
+    rEye = pose['rightEye'];
+    lEye = pose['leftEye'];
+    drawCensorBar();
+
   }
 }
 
@@ -72,4 +68,17 @@ function drawSkeleton() {
       line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
     }
   }
+}
+
+function drawCensorBar(){
+  console.log("right eye"+rEye);
+  let eye_w = dist(rEye.x,lEye.x, rEye.y,lEye.x);
+  let eye_h = eye_w/4;
+  let center_x = rEye.x + ((lEye.x-rEye.x)/2);
+  let center_y = rEye.y +(lEye.y-rEye.y)/2;
+  rectMode(CENTER);
+  fill(0,0,0);
+  noStroke();
+  rect(center_x, center_y, eye_w, eye_h);
+
 }
