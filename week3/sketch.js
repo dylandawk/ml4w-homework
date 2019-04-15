@@ -20,7 +20,9 @@ const prob3 = document.getElementById('prob3'); // select <span id="prob1">
 const prob4 = document.getElementById('prob4'); // select <span id="prob1">
 
 function preload(){
-  clip01 = loadSound("I_really_cant_stay.mp3");
+  clip01 = loadSound("I_really_cant_stay.mp3", function(){
+    console.log('loaded clip1');
+  });
   clip02 = loadSound("Ive_gotta_go_away.mp3");
   clip03 = loadSound("This_evening_has_been.mp3");
   clip04 = loadSound("So_very_nice.mp3");
@@ -28,9 +30,12 @@ function preload(){
 }
 
 function setup(){
-  clip01.Play();
-  console.log("Play clip one");
+
 }
+
+function draw(){
+}
+
 
 loadMyModel();
 
