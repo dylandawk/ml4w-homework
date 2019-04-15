@@ -1,6 +1,9 @@
 // more documentation available at
 // https://github.com/tensorflow/tfjs-models/tree/master/speech-commands
-let clip01, clip02, clip03, clip04;
+let clip01;
+let clip02;
+let clip03;
+let clip04;
 const modelJson = 'https://storage.googleapis.com/tm-speech-commands/Baby-its-cold-outside-01/model.json';
 const metadataJson = 'https://storage.googleapis.com/tm-speech-commands/Baby-its-cold-outside-01/metadata.json';
 
@@ -17,10 +20,16 @@ const prob3 = document.getElementById('prob3'); // select <span id="prob1">
 const prob4 = document.getElementById('prob4'); // select <span id="prob1">
 
 function preload(){
-  clip01 = loadSound("I_really_cant_stay");
-  clip02 = loadSound("Ive_gotta_go_away");
-  clip03 = loadSound("This_evening_has_been");
-  clip04 = loadSound("So_very_nice");
+  clip01 = loadSound("I_really_cant_stay.wav");
+  clip02 = loadSound("Ive_gotta_go_away.wav");
+  clip03 = loadSound("This_evening_has_been.wav");
+  clip04 = loadSound("So_very_nice.wav");
+  console.log("sounds loaded");
+}
+
+function setup(){
+  clip01.Play();
+  console.log("Play clip one");
 }
 
 loadMyModel();
@@ -32,7 +41,7 @@ async function loadMyModel(){
   await recognizer.ensureModelLoaded();
 
   // See the array of words that the recognizer is trained to recognize.
-  // console.log(recognizer.wordLabels());
+  //console.log(recognizer.wordLabels());
 
   // listen() takes two arguments:
   // 1. A callback function that is invoked anytime a word is recognized.
@@ -54,9 +63,9 @@ async function loadMyModel(){
 }
 
 function showResult(result){
-  // console.log('result: ', result);
-  // console.log('result.scores[0]', result.scores[0])
-  // console.log('result.scores[1]', result.scores[1])
+  console.log('result: ', result);
+  console.log('result.scores[0]', result.scores[0])
+  console.log('result.scores[1]', result.scores[1])
   // Show the probability for class 0 (noise)
   prob0.innerHTML = result.scores[0];
 
@@ -72,7 +81,6 @@ function showResult(result){
   // Show the probability for class 4 (So very nice)
   prob4.innerHTML = result.scores[4];
 
-
 }
 
 function playResult(result){
@@ -83,17 +91,14 @@ function playResult(result){
   else if(result.scores[2] > 0.75 && !clip02.isPlaying()){
     clip02.play();
     console.log("play clip02");
-
   }
   else if(result.scores[3] > 0.75 && !clip03.isPlaying()){
     clip03.play();
     console.log("play clip03");
-
   }
   else if(result.scores[4] > 0.75 && !clip04.isPlaying()){
     clip04.play();
     console.log("play clip04");
-
   }
 }
 
