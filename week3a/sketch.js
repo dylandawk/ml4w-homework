@@ -10,8 +10,23 @@ let isClip03Played = false;
 let isClip04Played = false;
 
 
-const modelJson = 'https://storage.googleapis.com/tm-speech-commands/Can You Feel the Love Tonight 01/model.json';
-const metadataJson = 'https://storage.googleapis.com/tm-speech-commands/Can You Feel the Love Tonight 01/metadata.json';
+const modelJson = 'https://storage.googleapis.com/tm-speech-commands/Can You Feel the Love Tonight 02/model.json';
+const metadataJson = 'https://storage.googleapis.com/tm-speech-commands/Can You Feel the Love Tonight 02/metadata.json';
+// let modelJson;
+// let metadataJson;
+
+function preload(){
+  clip01 = loadSound("I_can_see_whats_happening.mp3", function(){
+    console.log('loaded clip1');
+  });
+  clip02 = loadSound("And_they_dont_have_a_clue.mp3");
+  clip03 = loadSound("Theyll_fall_in_love.mp3");
+  clip04 = loadSound("Rest_of_song.mp3");
+  // modelJson = loadJSON("model.json")
+  // metadataJson = loadJSON("metadata.json")
+  console.log("sounds loaded");
+
+}
 
 const recognizer = speechCommands.create(
     'BROWSER_FFT',
@@ -25,15 +40,15 @@ const prob2 = document.getElementById('prob2'); // select <span id="prob0">
 const prob3 = document.getElementById('prob3'); // select <span id="prob1">
 
 
-function preload(){
-  clip01 = loadSound("I_can_see_whats_happening.wav", function(){
-    console.log('loaded clip1');
-  });
-  clip02 = loadSound("And_they_dont_have_a_clue.wav");
-  clip03 = loadSound("Theyll_fall_in_love.wav");
-  clip04 = loadSound("Rest_of_song.wav");
-  console.log("sounds loaded");
-}
+// function preload(){
+//   clip01 = loadSound("I_can_see_whats_happening.mp3", function(){
+//     console.log('loaded clip1');
+//   });
+//   clip02 = loadSound("And_they_dont_have_a_clue.mp3");
+//   clip03 = loadSound("Theyll_fall_in_love.mp3");
+//   clip04 = loadSound("Rest_of_song.mp3");
+//   console.log("sounds loaded");
+// }
 
 function setup(){
 
@@ -68,7 +83,7 @@ async function loadMyModel(){
   // - result.spectrogram contains the spectrogram of the recognized word.
   }, {
   //includeSpectrogram: true,
-  //probabilityThreshold: 0.75
+  // probabilityThreshold: 0.75
   });
 
 }
@@ -80,17 +95,15 @@ function showResult(result){
   // Show the probability for class 0 (noise)
   prob0.innerHTML = result.scores[0];
 
-  // Show the probability for class 1 (I really cant stay)
+  // Show the probability for class 1 (what?)
   prob1.innerHTML = result.scores[1];
 
-  // Show the probability for class 2 (I've gotta go away)
+  // Show the probability for class 2 (who?)
   prob2.innerHTML = result.scores[2];
 
-  // Show the probability for class 3 (This evening has been)
+  // Show the probability for class 3 (oh.)
   prob3.innerHTML = result.scores[3];
 
-  // Show the probability for class 4 (So very nice)
-  prob4.innerHTML = result.scores[4];
 
 }
 
