@@ -61,8 +61,8 @@ async function loadMyModel(){
   //   recognizer.wordLabels().
   // - result.spectrogram contains the spectrogram of the recognized word.
   }, {
-  includeSpectrogram: true,
-  probabilityThreshold: 0.75
+  //includeSpectrogram: true,
+  //probabilityThreshold: 0.75
   });
 
 }
@@ -89,19 +89,19 @@ function showResult(result){
 }
 
 function playResult(result){
-  if(result.scores[1] > 0.75 && !clip01.isPlaying()){
+  if(result.scores[1] > 0.85 && !clip01.isPlaying()){
     clip01.play();
     console.log("play clip01");
   }
-  else if(result.scores[2] > 0.75 && !clip02.isPlaying()){
+  else if(result.scores[2] > 0.85 && !clip02.isPlaying()){
     clip02.play();
     console.log("play clip02");
   }
-  else if(result.scores[3] > 0.75 && !clip03.isPlaying()){
+  else if(result.scores[3] > 0.85 && !clip03.isPlaying()){
     clip03.play();
     console.log("play clip03");
   }
-  else if(result.scores[4] > 0.75 && !clip04.isPlaying()){
+  else if(result.scores[4] > 0.85 && !clip04.isPlaying()){
     clip04.play();
     console.log("play clip04");
   }
