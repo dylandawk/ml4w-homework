@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    // the json file (model topology) has a reference to the bin file (model weights)
+    const checkpoint = 'https://storage.googleapis.com/tm-pro-a6966.appspot.com/DylanDawkinsFinalModel01/model.json';
+    let model;
+    const maxPredictions = 4;
+    async function load() {
+        model = await tm.mobilenet.load(checkpoint);
+        // use loadFromFiles() function to support files from a file picker or files from your local hard drive
+        // you need to create File objects, like with file input elements (<input type="file" ...>)
+        // const uploadJSONInput = document.getElementById('upload-json');
+        // const uploadWeightsInput = document.getElementById('upload-weights');
+        // model = await tm.mobilenet.loadFromFiles(uploadJSONInput.files[0], uploadWeightsInput.files[0])
+        // one way to get the total number of classes
+        // const totalClasses = model.model.outputShape[1];
+    }
+    async function init() {
+        await load();
+        // predict can take in an image, video or canvas html element
+        // PLEASE NOTE: the webcam input is flipped on x-axis on Teachable Machine. If you are
+        // feeding a webcam input you will have to flip the image as well to get accurate predictions
+        const prediction = await model.predict(image, maxPredictions);
+    }
+    init();
+    // the main tensorflow.js object is available through window
+    console.log(window.tf);
+</script>
